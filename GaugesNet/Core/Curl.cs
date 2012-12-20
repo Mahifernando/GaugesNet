@@ -60,7 +60,30 @@ namespace GaugesNet.Core
             return GetResponse(_request);
         }
 
-        public void Post() { }
+        public string Post(string url, string token, Dictionary<string, string> data) 
+        {
+            StringBuilder putDataBulder = new StringBuilder();
+            foreach (KeyValuePair<string, string> item in data)
+            {
+                putDataBulder.Append(item.Key + "=" + item.Value + "&");
+            }
+
+            byte[] putDataArray = Encoding.UTF8.GetBytes(putDataBulder.ToString().TrimEnd('&'));
+
+            _request = (HttpWebRequest)WebRequest.Create(url);
+            _request.Headers["X-Gauges-Token"] = token;
+            _request.Method = "POST";
+            _request.ContentType = "application/x-www-form-urlencoded";
+            _request.ContentLength = putDataArray.Length;
+            GetCredentials();
+
+            using (Stream requestStream = _request.GetRequestStream())
+            {
+                requestStream.Write(putDataArray, 0, putDataArray.Length);
+            }
+
+            return GetResponse(_request);
+        }
 
         public string Put(string url, string token, Dictionary<string,string> data) 
         {
@@ -87,7 +110,14 @@ namespace GaugesNet.Core
             return GetResponse(_request);
         }
 
-        public void Delete() { }
-
+        public string Delete(string url, string token) 
+        {
+            _request = (HttpWebRequest)WebRequest.Create(url);
+            _request.Headers["X-Gauges-Token"] = token;
+            _request.Method = "DELETE";
+            GetCredentials();
+            
+            return GetResponse(_request);
+        }
     }
 }
