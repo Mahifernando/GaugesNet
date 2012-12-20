@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="Core\Curl.cs" />
     <Compile Include="Core\Gauges.cs" />
+    <Compile Include="Entity\ApiClients.cs" />
     <Compile Include="Entity\Me.cs" />
     <Compile Include="Entity\Urls.cs" />
     <Compile Include="Entity\User.cs" />
