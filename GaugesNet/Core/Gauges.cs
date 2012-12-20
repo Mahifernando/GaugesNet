@@ -19,6 +19,7 @@
 using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using GaugesNet.Entity;
 
 namespace GaugesNet.Core
 {
@@ -32,13 +33,13 @@ namespace GaugesNet.Core
             this._token = token;
         }
 
-        public Entity.User Me()
+        public User Me()
         {
             string response = new Curl().Get("https://secure.gaug.es/me", _token);
             return JsonConvert.DeserializeObject<Entity.Me>(response).user;
         }
 
-        public Entity.User UpdateMe(string first_name, string last_name)
+        public User UpdateMe(string first_name, string last_name)
         {
             if (string.IsNullOrEmpty(first_name) && string.IsNullOrEmpty(last_name))
             {
@@ -52,6 +53,37 @@ namespace GaugesNet.Core
 
             string response = new Curl().Put("https://secure.gaug.es/me", _token, data);
             return JsonConvert.DeserializeObject<Entity.Me>(response).user;
+        }
+
+        public Clients Clients()
+        {
+            string response = new Curl().Get("https://secure.gaug.es/clients", _token);
+            return JsonConvert.DeserializeObject<Entity.ApiClients>(response).Clients;
+        }
+
+        public Client CreateClient(string description)
+        {
+            if (string.IsNullOrEmpty(description))
+            {
+                throw new NullReferenceException("description required");
+            }
+
+            Dictionary<string, string> data = new Dictionary<string, string>();
+            data.Add("description", description);
+
+            string response = new Curl().Post("https://secure.gaug.es/clients", _token, data);
+            return JsonConvert.DeserializeObject<Entity.ApiClients>(response).Client;
+        }
+
+        public Client DeleteClient(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+            {
+                throw new NullReferenceException("id required");
+            }
+
+            string response = new Curl().Delete("https://secure.gaug.es/clients/" + id, _token);
+            return JsonConvert.DeserializeObject<Entity.ApiClients>(response).Client;
         }
     }
 }
