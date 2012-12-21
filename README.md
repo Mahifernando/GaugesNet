@@ -10,3 +10,11 @@ Usage
             
             gauges.Me();            
             gauges.UpdateMe("Mahi", "Fernando");
+            gauges.GetClients();
+            gauges.CreateClient("Campfire");
+            gauges.DeleteClient("id");
+            gauges.GetGauges();
+            gauges.CreateGauge("title", "timezone", "www.sample.com,www.anotherdomain.com");
+            gauges.GetGauge("id");
+            gauges.UpdateGauge("id", "title", "timezone", "www.sample.com");
+            gauges..DeleteGauge();
