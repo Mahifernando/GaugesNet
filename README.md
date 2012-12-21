@@ -17,4 +17,4 @@ Usage
             gauges.CreateGauge("title", "timezone", "www.sample.com,www.anotherdomain.com");
             gauges.GetGauge("id");
             gauges.UpdateGauge("id", "title", "timezone", "www.sample.com");
-            gauges..DeleteGauge();
+            gauges.DeleteGauge();
