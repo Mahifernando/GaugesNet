@@ -65,7 +65,7 @@ namespace GaugesNet.Core
         {
             if (string.IsNullOrEmpty(firstName) && string.IsNullOrEmpty(lastName))
             {
-                throw new ArgumentNullException("first_name or last_name required");
+                throw new ArgumentNullException("firstName or lastName required.");
             }
 
             Dictionary<string, string> data = new Dictionary<string, string>();
