@@ -46,35 +46,35 @@ namespace GaugesNet.Core
         }
 
         /// <summary>
-        /// Gets user information
+        /// Gets user information.
         /// </summary>
         /// <returns>Instance of GaugesNet.Entity.User class.</returns>
         public Entity.User Me()
         {
             string response = new Curl().Get("https://secure.gaug.es/me", _token);
-            return JsonConvert.DeserializeObject<Entity.Me>(response).user;
+            return JsonConvert.DeserializeObject<Entity.Me>(response).User;
         }
 
         /// <summary>
         /// Update user's first name and/or last name.
         /// </summary>
-        /// <param name="first_name">User's first name</param>
-        /// <param name="last_name">User's last name</param>
+        /// <param name="firstName">User's first name.</param>
+        /// <param name="lastName">User's last name.</param>
         /// <returns>Instance of GaugesNet.Entity.User class.</returns>
-        public Entity.User UpdateMe(string first_name, string last_name)
+        public Entity.User UpdateMe(string firstName, string lastName)
         {
-            if (string.IsNullOrEmpty(first_name) && string.IsNullOrEmpty(last_name))
+            if (string.IsNullOrEmpty(firstName) && string.IsNullOrEmpty(lastName))
             {
                 throw new ArgumentNullException("first_name or last_name required");
             }
 
             Dictionary<string, string> data = new Dictionary<string, string>();
 
-            if (!string.IsNullOrEmpty(first_name)) { data.Add("first_name", first_name); }
-            if (!string.IsNullOrEmpty(last_name)) { data.Add("last_name", last_name); }
+            if (!string.IsNullOrEmpty(firstName)) { data.Add("first_name", firstName); }
+            if (!string.IsNullOrEmpty(lastName)) { data.Add("last_name", lastName); }
 
             string response = new Curl().Put("https://secure.gaug.es/me", _token, data);
-            return JsonConvert.DeserializeObject<Entity.Me>(response).user;
+            return JsonConvert.DeserializeObject<Entity.Me>(response).User;
         }
 
         /// <summary>
@@ -96,7 +96,7 @@ namespace GaugesNet.Core
         {
             if (string.IsNullOrEmpty(description))
             {
-                throw new ArgumentNullException("description required");
+                throw new ArgumentNullException("description required.");
             }
 
             Dictionary<string, string> data = new Dictionary<string, string>();
@@ -113,7 +113,7 @@ namespace GaugesNet.Core
         /// <returns>Instance of GaugesNet.Entity.Client class.</returns>
         public Entity.Client DeleteClient(string id)
         {
-            if (string.IsNullOrEmpty(id)) { throw new ArgumentNullException("id required"); }
+            if (string.IsNullOrEmpty(id)) { throw new ArgumentNullException("id required."); }
 
             string response = new Curl().Delete("https://secure.gaug.es/clients/" + id, _token);
             return JsonConvert.DeserializeObject<Entity.ApiClients>(response).Client;
@@ -126,28 +126,28 @@ namespace GaugesNet.Core
         public Entity.Gauges GetGauges()
         {
             string response = new Curl().Get("https://secure.gaug.es/gauges", _token);
-            return JsonConvert.DeserializeObject<Entity.ApiGauges>(response).gauges;
+            return JsonConvert.DeserializeObject<Entity.ApiGauges>(response).Gauges;
         }
 
         /// <summary>
         /// Create a new gauge.
         /// </summary>
         /// <param name="title">The title of the gauge.</param>
-        /// <param name="tz">The time zone that should be used for all date/time operations.</param>
-        /// <param name="allowed_hosts">Comma or space separated list of domains to accept tracking data from.</param>
+        /// <param name="timezone">The time zone that should be used for all date/time operations.</param>
+        /// <param name="allowedHosts">Comma or space separated list of domains to accept tracking data from.</param>
         /// <returns>Instance of GaugesNet.Entity.Gauge class.</returns>
-        public Entity.Gauge CreateGauge(string title, string tz, string allowed_hosts) 
+        public Entity.Gauge CreateGauge(string title, string timezone, string allowedHosts) 
         {
             if (string.IsNullOrEmpty(title)) { throw new ArgumentNullException("title required."); }
-            if (string.IsNullOrEmpty(tz)) { throw new ArgumentNullException("tz required."); }
+            if (string.IsNullOrEmpty(timezone)) { throw new ArgumentNullException("timezone required."); }
 
             Dictionary<string, string> data = new Dictionary<string, string>();
             data.Add("title", title);
-            data.Add("tz", tz);
-            if (string.IsNullOrEmpty(allowed_hosts)) { data.Add("allowed_hosts", allowed_hosts); }
+            data.Add("tz", timezone);
+            if (string.IsNullOrEmpty(allowedHosts)) { data.Add("allowed_hosts", allowedHosts); }
 
             string response = new Curl().Post("https://secure.gaug.es/gauges", _token, data);
-            return JsonConvert.DeserializeObject<Entity.ApiGauges>(response).gauge;
+            return JsonConvert.DeserializeObject<Entity.ApiGauges>(response).Gauge;
         }
 
         /// <summary>
@@ -160,7 +160,7 @@ namespace GaugesNet.Core
             if (string.IsNullOrEmpty(id)) { throw new ArgumentNullException("id required."); }
             
             string response = new Curl().Get("https://secure.gaug.es/gauges/" + id, _token);
-            return JsonConvert.DeserializeObject<Entity.ApiGauges>(response).gauge;
+            return JsonConvert.DeserializeObject<Entity.ApiGauges>(response).Gauge;
         }
 
         /// <summary>
@@ -168,23 +168,23 @@ namespace GaugesNet.Core
         /// </summary>
         /// <param name="id">API client key.</param>
         /// <param name="title">The title of the gauge.</param>
-        /// <param name="tz">The time zone that should be used for all date/time operations.</param>
-        /// <param name="allowed_hosts">Comma or space separated list of domains to accept tracking data from.</param>
+        /// <param name="timezone">The time zone that should be used for all date/time operations.</param>
+        /// <param name="allowedHosts">Comma or space separated list of domains to accept tracking data from.</param>
         /// <returns>Instance of GaugesNet.Entity.Gauge class.</returns>
-        public Entity.Gauge UpdateGauge(string id, string title, string tz, string allowed_hosts)
+        public Entity.Gauge UpdateGauge(string id, string title, string timezone, string allowedHosts)
         {
             if (string.IsNullOrEmpty(id)) { throw new ArgumentNullException("id required."); }
             if (string.IsNullOrEmpty(title)) { throw new ArgumentNullException("title required."); }
-            if (string.IsNullOrEmpty(tz)) { throw new ArgumentNullException("tz required."); }
+            if (string.IsNullOrEmpty(timezone)) { throw new ArgumentNullException("timezone required."); }
 
             Dictionary<string, string> data = new Dictionary<string, string>();
             data.Add("id", id);
             data.Add("title", title);
-            data.Add("tz", tz);
-            if (string.IsNullOrEmpty(allowed_hosts)) { data.Add("allowed_hosts", allowed_hosts); }
+            data.Add("tz", timezone);
+            if (string.IsNullOrEmpty(allowedHosts)) { data.Add("allowed_hosts", allowedHosts); }
 
             string response = new Curl().Put("https://secure.gaug.es/gauges/" + id, _token, data);
-            return JsonConvert.DeserializeObject<Entity.ApiGauges>(response).gauge;
+            return JsonConvert.DeserializeObject<Entity.ApiGauges>(response).Gauge;
         }
 
         /// <summary>
@@ -197,7 +197,7 @@ namespace GaugesNet.Core
             if (string.IsNullOrEmpty(id)) { throw new ArgumentNullException("id required."); }
 
             string response = new Curl().Delete("https://secure.gaug.es/gauges/" + id, _token);
-            return JsonConvert.DeserializeObject<Entity.ApiGauges>(response).gauge;
+            return JsonConvert.DeserializeObject<Entity.ApiGauges>(response).Gauge;
         }
     }
 }
