@@ -16,13 +16,17 @@
 //                                                                              |
 // ------------------------------------------------------------------------------
 
+using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Text;
-using System.Collections.Generic;
 
 namespace GaugesNet.Core
 {
+    /// <summary>
+    /// Implements HTTP methods (GET,POST,PUT,DELETE) to communicate with the Gaug.es API.
+    /// This class cannot be inherited.
+    /// </summary>
     internal sealed class Curl
     {
         private HttpWebRequest _request = null;
