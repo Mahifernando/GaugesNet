@@ -16,20 +16,34 @@
 //                                                                              |
 // ------------------------------------------------------------------------------
 
+using Newtonsoft.Json;
+
 namespace GaugesNet.Entity
 {
     public class Me
     {
-        public User user { get; set; }
+        [JsonProperty("user")]
+        public User User { get; set; }
     }
 
     public class User
     {
-        public string name { get; set; }
-        public Urls urls { get; set; }
-        public string id { get; set; }
-        public string first_name { get; set; }
-        public string last_name { get; set; }
-        public string email { get; set; }
+        [JsonProperty("name")]
+        public string Name { get; set; }
+
+        [JsonProperty("urls")]
+        public Urls Urls { get; set; }
+
+        [JsonProperty("id")]
+        public string Id { get; set; }
+
+        [JsonProperty("first_name")]
+        public string FirstName { get; set; }
+
+        [JsonProperty("last_name")]
+        public string LastName { get; set; }
+
+        [JsonProperty("email")]
+        public string Email { get; set; }
     }
 }

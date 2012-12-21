@@ -18,13 +18,17 @@
 
 using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace GaugesNet.Entity
 {
     public class ApiGauges
     {
-        public Gauges gauges { get; set; }
-        public Gauge gauge { get; set; }
+        [JsonProperty("gauges")]
+        public Gauges Gauges { get; set; }
+
+        [JsonProperty("gauge")]
+        public Gauge Gauge { get; set; }
     }
 
     public class Gauges: List<Gauge>
@@ -34,19 +38,44 @@ namespace GaugesNet.Entity
 
     public class Gauge
     {
-        public string id { get; set; }
-        public string title { get; set; }
-        public string tz { get; set; }
-        public string now_in_zone { get; set; }
-        public bool enabled { get; set; }
-        public string creator_id { get; set; }
-        public Urls urls { get; set; }
-        public AllTime all_time { get; set; }
-        public Today today { get; set; }
-        public Yesterday yesterday { get; set; }
-        public RecentHours recent_hours { get; set; }
-        public RecentMonths recent_months { get; set; }
-        public RecentDays recent_days { get; set; }
+        [JsonProperty("id")]
+        public string Id { get; set; }
+
+        [JsonProperty("title")]
+        public string Title { get; set; }
+
+        [JsonProperty("tz")]
+        public string TimeZone { get; set; }
+
+        [JsonProperty("now_in_zone")]
+        public string NowInZone { get; set; }
+
+        [JsonProperty("enabled")]
+        public bool Enabled { get; set; }
+
+        [JsonProperty("creator_id")]
+        public string CreatorId { get; set; }
+
+        [JsonProperty("urls")]
+        public Urls Urls { get; set; }
+
+        [JsonProperty("all_time")]
+        public AllTime AllTime { get; set; }
+
+        [JsonProperty("today")]
+        public Today Today { get; set; }
+
+        [JsonProperty("yesterday")]
+        public Yesterday Yesterday { get; set; }
+
+        [JsonProperty("recent_hours")]
+        public RecentHours RecentHours { get; set; }
+
+        [JsonProperty("recent_months")]
+        public RecentMonths RecentMonths { get; set; }
+
+        [JsonProperty("recent_days")]
+        public RecentDays RecentDays { get; set; }
     }
 
     public class AllTime: GaugeStat 
@@ -56,7 +85,8 @@ namespace GaugesNet.Entity
 
     public class Today : GaugeStat
     {
-        public DateTime date { get; set; }
+        [JsonProperty("date")]
+        public DateTime Date { get; set; }
     }
 
     public class Yesterday: Today
@@ -71,7 +101,8 @@ namespace GaugesNet.Entity
 
     public class ByHours : GaugeStat
     {
-        public string hour { get; set; }
+        [JsonProperty("hour")]
+        public string Hour { get; set; }
     }
 
     public class RecentMonths : List<ByMonth>
@@ -91,7 +122,10 @@ namespace GaugesNet.Entity
 
     public abstract class GaugeStat
     {
-        public string views { get; set; }
-        public string people { get; set; }
+        [JsonProperty("views")]
+        public string Views { get; set; }
+
+        [JsonProperty("people")]
+        public string People { get; set; }
     }
 }
